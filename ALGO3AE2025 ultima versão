@@ -1,0 +1,88 @@
+# Importando as bibliotecas necessárias para cálculos e geração de valores aleatórios
+import random
+import math
+
+# Criando a classe que representa um artefato alienígena
+class ArtefatoAlienigena:
+    """
+    Esta classe modela um artefato alienígena e calcula sua probabilidade de ser uma ameaça,
+    além de determinar se ele é um "Morador" ou um "Visitante" com base em seus atributos.
+    """
+
+    def __init__(self, **kwargs):
+        """
+        O método __init__ é o construtor da classe.
+        Ele inicializa os atributos do artefato e define a origem com base em critérios geológicos e históricos.
+
+        Os atributos são recebidos como argumentos nomeados (**kwargs) e possuem um valor padrão de 5,
+        caso não sejam fornecidos explicitamente.
+
+        Parâmetros:
+        - kwargs: atributos do artefato (exemplo: tecnologia, impacto ambiental, etc.)
+        """
+
+        # Definição dos atributos principais
+        self.atributos = {atributo: kwargs.get(atributo, 5) for atributo in [
+            "registro_arqueologico", "impacto_ambiental", "analise_quimica", "analise_biologica"
+        ]}
+
+        # A origem do artefato é determinada automaticamente com base nos atributos geológicos e históricos
+        self.origem = self.definir_origem()
+
+    def definir_origem(self):
+        """
+        Método que define se o artefato é um "Morador" (nativo da Terra) ou "Visitante" (de origem extraterrestre).
+        A classificação é baseada nos atributos de registro arqueológico, impacto ambiental, análise química e biológica.
+
+        Retorna:
+        - "Morador" se os critérios forem atendidos.
+        - "Visitante" caso contrário.
+        """
+
+        if (self.atributos["registro_arqueologico"] >= 10 and
+            self.atributos["impacto_ambiental"] >= 10 and
+            self.atributos["analise_quimica"] >= 10 and
+            self.atributos["analise_biologica"] >= 10):
+            return "Morador"
+        else:
+            return "Visitante"
+
+    def calcular_ameaca(self):
+        """
+        Este método calcula a probabilidade de ameaça do artefato com base em seus atributos.
+
+        O cálculo considera a soma ponderada dos atributos definidos, normalizada para um intervalo de 0 a 100%.
+        Isso garante que a probabilidade de ameaça seja **dinâmica**, refletindo a influência de cada fator.
+
+        Retorna:
+        - String formatada com a probabilidade de ameaça e a origem do artefato.
+        """
+
+        # Cálculo da pontuação de ameaça com base nos atributos
+        score = sum(self.atributos.get(fator, 5) * 10 for fator in self.atributos)
+        score = (score / (15 * len(self.atributos) * 10)) * 100
+        score = min(score, 99.99)  # Limite superior de 99.99% para evitar distorções
+
+        # Retorno formatado com as informações de análise
+        return f"\n--- ANÁLISE FINAL ---\n**PROBABILIDADE DE AMEAÇA: {score:.2f}%**\n🛸 **ORIGEM DO ARTEFATO:** {self.origem}"
+
+# Criando um artefato para análise
+artefato = ArtefatoAlienigena(
+    registro_arqueologico=12, impacto_ambiental=11, analise_quimica=12, analise_biologica=10
+)
+
+# Executando a análise e exibindo o resultado
+resultado = artefato.calcular_ameaca()
+print(resultado)
+# Código aprimorado com apoio da IA Copilot - parceria de lógica, carinhosamente tratada pelo codinome Bud Leal, Bud de amigo/amiga e Claudio Leal.
+
+     
+--- ANÁLISE FINAL ---
+**PROBABILIDADE DE AMEAÇA: 75.00%**
+🛸 **ORIGEM DO ARTEFATO:** Morador
+
+#@title Introdução ao Colaboratory { display-mode: "form" }
+#@markdown Este video de 3-minutos apresenta um panorama das propriedades chaves do Colaboratory:
+from IPython.display import YouTubeVideo
+YouTubeVideo('inN8seMm7UI', width=600, height=400)
+     
